@@ -48,20 +48,23 @@ pabellones.forEach(function (pabellon) {
 function checkProximity(userLatLng) {
     pabellones.forEach(function (pabellon) {
         var distance = map.distance(userLatLng, L.latLng(pabellon.coordinates)); // Distancia en metros
-        var maxDistance = 200; // Máxima distancia para activar el audio
+        var maxDistance = 50; // Máxima distancia para activar el audio (puedes modificar esto)
 
+        // Verifica si la distancia es menor que la máxima
         if (distance < maxDistance) {
             // Ajustar volumen en función de la distancia
-            var volume = 1 - (distance / maxDistance);
-            pabellon.audio.volume = Math.max(0, Math.min(volume, 1));
+            var volume = 1 - (distance / maxDistance); // El volumen disminuye cuanto mayor es la distancia
+            pabellon.audio.volume = Math.max(0, Math.min(volume, 1)); // Limita el volumen entre 0 y 1
 
+            // Reproducir el audio si no está ya sonando
             if (pabellon.audio.paused) {
                 pabellon.audio.play();
             }
         } else {
-            // Detener audio si estamos fuera del rango
+            // Detener el audio si la distancia es mayor que la máxima
             if (!pabellon.audio.paused) {
                 pabellon.audio.pause();
+                pabellon.audio.currentTime = 0; // Reinicia el audio al principio
             }
         }
     });
