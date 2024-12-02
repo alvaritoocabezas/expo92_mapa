@@ -48,7 +48,7 @@ pabellones.forEach(function (pabellon) {
 function checkProximity(userLatLng) {
     pabellones.forEach(function (pabellon) {
         var distance = map.distance(userLatLng, L.latLng(pabellon.coordinates)); // Distancia en metros
-        var maxDistance = 50; // Máxima distancia para activar el audio (puedes modificar esto)
+        var maxDistance = 30; // Máxima distancia para activar el audio (puedes modificar esto)
 
         // Verifica si la distancia es menor que la máxima
         if (distance < maxDistance) {
